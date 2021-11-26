@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
+	"pustaka-api/book"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -42,17 +42,9 @@ func QueryHandler(c *gin.Context) {
 	})
 }
 
-type BookInput struct {
-	Title string      `json:"title" binding:"required"`
-	Price json.Number `json:"price" binding:"required,number"`
-	// Subtitle string `json:"sub_title"` do this for mapping, different
-	Subtitle string
-	Email    string `json:"email" binding:"email"`
-}
-
 func PostBooksHandler(c *gin.Context) {
 	// title and price
-	var bookInput BookInput
+	var bookInput book.BookInput
 	err := c.ShouldBindJSON(&bookInput)
 	if err != nil {
 		errorMessages := []string{}
