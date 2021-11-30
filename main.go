@@ -23,19 +23,28 @@ func main() {
 	db.AutoMigrate(&book.Book{})
 	fmt.Println("Automigration succeeded.")
 
-	book := book.Book{}
-	book.Title = "The Kite Runner"
-	book.Price = 90000
-	book.Discount = 7
-	book.Rating = 5
-	book.Description = "Written by Khalid Hussaini"
+	// book := book.Book{}
+	// book.Title = "The Kite Runner"
+	// book.Price = 90000
+	// book.Discount = 7
+	// book.Rating = 5
+	// book.Description = "Written by Khalid Hussaini"
 
-	err = db.Create(&book).Error
+	// err = db.Create(&book).Error
+	// if err != nil {
+	// 	fmt.Println("==============================")
+	// 	fmt.Println("====Error creating book=======")
+	// 	fmt.Println("==============================")
+	// }
+
+	var book book.Book
+	err = db.First(&book).Error
 	if err != nil {
 		fmt.Println("==============================")
-		fmt.Println("====Error creating book=======")
+		fmt.Println("====Error Retrieving book=======")
 		fmt.Println("==============================")
 	}
+	fmt.Println("Title: ", book.Title)
 
 	router := gin.Default()
 	v1 := router.Group("/v1")
