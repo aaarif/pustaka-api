@@ -24,11 +24,11 @@ func main() {
 	fmt.Println("Automigration succeeded.")
 
 	// book := book.Book{}
-	// book.Title = "The Kite Runner"
-	// book.Price = 90000
-	// book.Discount = 7
-	// book.Rating = 5
-	// book.Description = "Written by Khalid Hussaini"
+	// book.Title = "Influencer Economy"
+	// book.Price = 100000
+	// book.Discount = 5
+	// book.Rating = 4
+	// book.Description = "Academy publisher"
 
 	// err = db.Create(&book).Error
 	// if err != nil {
@@ -37,15 +37,34 @@ func main() {
 	// 	fmt.Println("==============================")
 	// }
 
-	var book book.Book
-	err = db.First(&book).Error
+	var book2 book.Book
+	err = db.Where("title LIKE ? ", "Influencer%").First(&book2).Error
 	if err != nil {
 		fmt.Println("==============================")
-		fmt.Println("====Error Retrieving book=======")
+		fmt.Println("====Error Retrieving book for update =======")
 		fmt.Println("==============================")
 	}
-	fmt.Println("Title: ", book.Title)
+	fmt.Println("Book to update: ", book2.Title)
+	book2.Title = "Influencer Economy 2nd Edition"
+	err = db.Save(&book2).Error
+	if err != nil {
+		fmt.Println("==============================")
+		fmt.Println("====Error updating book=======")
+		fmt.Println("==============================")
+	}
 
+	// var books []book.Book
+	// err = db.Debug().Where("title LIKE ? ", "Influencer%").Find(&books).Error
+	// if err != nil {
+	// 	fmt.Println("==============================")
+	// 	fmt.Println("====Error Retrieving all books with title Influencer=======")
+	// 	fmt.Println("==============================")
+	// }
+
+	// for _, b := range books {
+	// 	fmt.Println("Book Title like Influencer: ", b.Title)
+	// 	fmt.Println("Book object %v", b)
+	// }
 	router := gin.Default()
 	v1 := router.Group("/v1")
 	v1.GET("/", handler.RootHandler)
