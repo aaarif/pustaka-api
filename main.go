@@ -22,6 +22,21 @@ func main() {
 	fmt.Println("Database connected.")
 	db.AutoMigrate(&book.Book{})
 	fmt.Println("Automigration succeeded.")
+
+	book := book.Book{}
+	book.Title = "The Kite Runner"
+	book.Price = 90000
+	book.Discount = 7
+	book.Rating = 5
+	book.Description = "Written by Khalid Hussaini"
+
+	err = db.Create(&book).Error
+	if err != nil {
+		fmt.Println("==============================")
+		fmt.Println("====Error creating book=======")
+		fmt.Println("==============================")
+	}
+
 	router := gin.Default()
 	v1 := router.Group("/v1")
 	v1.GET("/", handler.RootHandler)
