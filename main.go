@@ -44,12 +44,12 @@ func main() {
 		fmt.Println("====Error Retrieving book for update =======")
 		fmt.Println("==============================")
 	}
-	fmt.Println("Book to update: ", book2.Title)
-	book2.Title = "Influencer Economy 2nd Edition"
-	err = db.Save(&book2).Error
+	fmt.Println("Book to delete: ", book2.Title)
+
+	err = db.Delete(&book2).Error
 	if err != nil {
 		fmt.Println("==============================")
-		fmt.Println("====Error updating book=======")
+		fmt.Println("====Error deleting book=======")
 		fmt.Println("==============================")
 	}
 
